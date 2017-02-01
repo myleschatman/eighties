@@ -19,13 +19,6 @@ gulp.task('style', () => {
     .pipe(jshint.reporter('jshint-stylish', {verbose: true}));
 });
 
-gulp.task('serve', () => {
-  browserSync.init({
-    server: "./"
-  });
-  gulp.watch('src/**/*.*').on('change', browserSync.reload);
-});
-
 gulp.task('build', () => {
   browserify('src/index.js')
     .transform(babelify, {
@@ -37,4 +30,16 @@ gulp.task('build', () => {
     .pipe(gulp.dest('build/scripts'));
 });
 
-gulp.task('default', ['style', 'build', 'serve']);
+gulp.task('static', () => {
+  return gulp.src('static/**/*')
+    .pipe(gulp.dest('build/assets'));
+});
+
+gulp.task('serve', () => {
+  browserSync.init({
+    server: "./"
+  });
+  gulp.watch('src/**/*.*').on('change', browserSync.reload);
+});
+
+gulp.task('default', ['style', 'build', 'static', 'serve']);
