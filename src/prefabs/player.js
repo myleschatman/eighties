@@ -20,7 +20,7 @@ export default class Player extends Phaser.Sprite {
     this.cursors = this.game.input.keyboard.createCursorKeys();
   }
 
-  update() {
+  move() {
     let speed = 180;
     this.body.velocity.y = 0;
     this.body.velocity.x = 0;
@@ -66,6 +66,11 @@ export default class Player extends Phaser.Sprite {
       this.body.velocity.y = 0;
       this.animations.stop();
     }
+  }
+
+  update() {
+    this.move();
+    console.log('test')
   }
 }
 

@@ -9,7 +9,8 @@ export default class GameState extends Phaser.State {
     this.player.scale.setTo(0.6, 0.6);
     this.add.existing(this.player);
   }
-  update() {
 
+  update() {
+    
   }
 }
