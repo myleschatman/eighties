@@ -70,7 +70,6 @@ export default class Player extends Phaser.Sprite {
 
   update() {
     this.move();
-    console.log('test')
   }
 }
 
