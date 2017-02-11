@@ -1,98 +1,40 @@
 export default class Player extends Phaser.Sprite {
   constructor(game) {
-    super(game, 0, 0, 'player');
-    this.game.physics.arcade.enableBody(this);
-    this.game.physics.arcade.enable(this);
+    super(game);
 
-    this.body.collideWorldBounds = true;
+    this.sprite = this.game.add.isoSprite(350, 280, 0, 'player', 0);
+    this.sprite.scale.setTo(0.9);
+    this.sprite.anchor.set(0.5, 1);
+    this.sprite.animations.add('Walk_N', Phaser.Animation.generateFrameNames('frame_', 1, 19), 20, true);
+    this.sprite.animations.add('Walk_NE', Phaser.Animation.generateFrameNames('frame_', 20, 39), 20, true);
+    this.sprite.animations.add('Walk_E', Phaser.Animation.generateFrameNames('frame_', 40, 59), 20, true);
+    this.sprite.animations.add('Walk_SE', Phaser.Animation.generateFrameNames('frame_', 60, 79), 20, true);
+    this.sprite.animations.add('Walk_S', Phaser.Animation.generateFrameNames('frame_', 80, 99), 20, true);
+    this.sprite.animations.add('Walk_SW', Phaser.Animation.generateFrameNames('frame_', 100, 119), 20, true);
+    this.sprite.animations.add('Walk_W', Phaser.Animation.generateFrameNames('frame_', 120, 139), 20, true);
+    this.sprite.animations.add('Walk_NW', Phaser.Animation.generateFrameNames('frame_', 140, 159), 20, true);
 
-    this.game.camera.follow(this);
-
-    this.animations.add('NorthEast', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 20, true);
-    this.animations.add('NorthWest', [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37], 20, true);
-    this.animations.add('SouthEast', [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56], 20, true);
-    this.animations.add('SouthWest', [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75], 20, true);
-    this.animations.add('North', [76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94], 20, true);
-    this.animations.add('South', [95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113], 20, true);
-    this.animations.add('East', [114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132], 20, true);
-    this.animations.add('West', [133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151], 20, true);
-
-    this.cursors = this.game.input.keyboard.createCursorKeys();
+    this.speed = 2;
+  }
+  play(animation) {
+    this.sprite.animations.play(animation);
+  }
+  stop() {
+    this.sprite.animations.stop();
+  }
+  get x() {
+    return this.sprite.isoX;
   }
 
-  move() {
-    let speed = 180;
-    this.body.velocity.y = 0;
-    this.body.velocity.x = 0;
-
-    if (this.cursors.up.isDown && this.cursors.right.isDown) {
-      this.body.velocity.y = -speed;
-      this.body.velocity.x = speed;
-      this.animations.play('NorthEast');
-    }
-    else if (this.cursors.up.isDown && this.cursors.left.isDown) {
-      this.body.velocity.y = -speed;
-      this.body.velocity.x = -speed;
-      this.animations.play('NorthWest');
-    }
-    else if (this.cursors.down.isDown && this.cursors.right.isDown) {
-      this.body.velocity.y = speed;
-      this.body.velocity. x = speed;
-      this.animations.play('SouthEast');
-    }
-    else if (this.cursors.down.isDown && this.cursors.left.isDown) {
-      this.body.velocity.y = speed;
-      this.body.velocity.x = -speed;
-      this.animations.play('SouthWest');
-    }
-    else if (this.cursors.up.isDown) {
-      this.body.velocity.y = -speed;
-      this.animations.play('North');
-    }
-    else if (this.cursors.down.isDown) {
-      this.body.velocity.y = speed;
-      this.animations.play('South');
-    }
-    else if (this.cursors.right.isDown) {
-      this.body.velocity.x = speed;
-      this.animations.play('East');
-    }
-    else if (this.cursors.left.isDown) {
-      this.body.velocity.x = -speed;
-      this.animations.play('West');
-    }
-    else {
-      this.body.velocity.x = 0;
-      this.body.velocity.y = 0;
-      this.animations.stop();
-    }
+  set x(isoX) {
+    this.sprite.isoX = isoX;
   }
 
-  update() {
-    this.move();
+  get y() {
+    return this.sprite.isoY;
+  }
+
+  set y(isoY) {
+    this.sprite.isoY = isoY;
   }
 }
-
-// this.game.world.children[0].body.maxVelocity.x = 180;
-// this.game.world.children[0].body.maxVelocity.y = 180;
-//
-// this.game.input.keyboard.onDownCallback = function(e) {
-//   let directions = {
-//     'ArrowUp': () => {
-//       this.game.world.children[0].animations.play('North');
-//       this.game.world.children[0].body.velocity.y -= 180;
-//     },
-//     'ArrowLeft': () => {
-//       this.game.world.children[0].animations.play('West');
-//       this.game.world.children[0].body.velocity.x -= 180;
-//     },
-//     'ArrowRight': () => {
-//       this.game.world.children[0].animations.play('East');
-//       this.game.world.children[0].body.velocity.x += 180;
-//     },
-//     'default': () => {
-//       this.game.world.children[0].animations.stop();
-//     }
-//   };
-//   (directions[e.key] || directions['default'])();
-// };
