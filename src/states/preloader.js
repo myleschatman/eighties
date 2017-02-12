@@ -25,7 +25,10 @@ class Preloader extends Phaser.State {
 
   loadResources() {
     // load your resources here
-    this.game.load.image('stone_E', '../../assets/stone_tiles/stone_E.png');
+    this.game.load.atlas('dungeon_tiles',
+      '../../assets/maps/dungeon_tiles.png',
+      '../../assets/maps/dungeon_tiles.json'
+    );
     this.game.load.atlas('player',
       '../../assets/feca_female/feca_female_walk/feca_female_walk.png',
       '../../assets/feca_female/feca_female_walk/feca_female_walk.json'

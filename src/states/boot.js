@@ -13,7 +13,7 @@ class Boot extends Phaser.State {
     // Add and enable the plug-in.
     this.game.plugins.add(new Phaser.Plugin.Isometric(this.game));
 
-    this.game.world.setBounds(0, 0, 2048, 1024);
+    this.game.world.setBounds(0, 0, 3072, 2048);
 
     // Start the IsoArcade physics system.
     this.game.physics.startSystem(Phaser.Plugin.Isometric.ISOARCADE);
