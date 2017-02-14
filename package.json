@@ -9,15 +9,17 @@
     "build:js": "browserify -d -e src/main.js -t [babelify --comments false --presets es2015] | uglifyjs -cm > build/bundle.min.js",
     "build:css": "cleancss css/main.css -o build/main.min.css",
     "build:html": "htmlprocessor index.html -o build/index.html",
-    "copy:all": "npm run copy:assets && npm run copy:phaser && npm run copy:phaser-isometric",
+    "copy:all": "npm run copy:assets && npm run copy:phaser && npm run copy:phaser-isometric && npm run copy:easystarjs",
     "copy:assets": "ncp assets build/",
     "copy:phaser": "ncp node_modules/phaser/build/phaser.min.js build/phaser.min.js",
-    "copy:phaser-isometric": "ncp node_modules/phaser-plugin-isometric/dist/phaser-plugin-isometric.min.js build/phaser-plugin-isometric.min.js"
+    "copy:phaser-isometric": "ncp node_modules/phaser-plugin-isometric/dist/phaser-plugin-isometric.min.js build/phaser-plugin-isometric.js",
+    "copy:easystarjs": "ncp node_modules/easystarjs/bin/easystar-0.3.1.min.js build/easystar-0.3.1.min.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "easystarjs": "^0.3.1",
     "phaser": "^2.6.2",
     "phaser-plugin-isometric": "^0.9.2"
   },

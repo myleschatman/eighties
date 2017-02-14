@@ -6,8 +6,13 @@ class Game extends Phaser.State {
   }
 
   create() {
-    this.input.onDown.add(this.endGame, this);
+    this.easystar = new EasyStar.js();
+
+    this.game.stage.backgroundColor = "0xde6712";
     this.cursors = this.game.input.keyboard.createCursorKeys();
+
+    this.groundGroup = this.game.add.group();
+    this.collideGroup = this.game.add.group();
 
     const ground = [
       [1, 1, 1, 3, 1, 1, 1, 1, 1, 3],
@@ -36,73 +41,41 @@ class Game extends Phaser.State {
     names[10] = 'bridge_E';
     names[11] = 'bridgeBroken_N';
 
-    var zt = 0;
+    this.emptyGroup = this.game.add.group();
+    this.groundGroup = this.game.add.group();
 
+    var zt = 0;
     for (var xt = 0; xt < ground.length; xt += 1) {
         for (var yt = 0; yt < ground[xt].length; yt += 1) {
-          this.floorTile = this.game.add.isoSprite(xt * 145, yt * 145, zt, 'dungeon_tiles', names[ground[xt][yt]]);
-          this.floorTile.anchor.set(0.5);
-          zt -= 10;
+          if (names[ground[xt][yt]] === 'empty') {
+            this.emptyTile = this.game.add.isoSprite(xt * 145, yt * 145, zt, 'dungeon_tiles', names[ground[xt][yt]], this.emptyGroup);
+            this.emptyTile.anchor.set(0.5);
+            this.game.physics.isoArcade.enableBody(this.emptyTile);
+            this.emptyTile.body.immovable = true;
+            zt -= 10;
+          } else {
+            this.groundTile = this.game.add.isoSprite(xt * 145, yt * 145, zt, 'dungeon_tiles', names[ground[xt][yt]], this.groundGroup);
+            this.groundTile.anchor.set(0.5);
+            this.game.physics.isoArcade.enableBody(this.groundTile);
+            this.groundTile.body.immovable = true;
+            zt -= 10;
+          }
         }
         zt += 90;
     }
-
     this.player = new Player(this.game);
-    this.physics.isoArcade.enable(this.player);
-
-    this.game.camera.follow(this.player.sprite);
-  }
-
-  walk() {
-    if (this.cursors.up.isDown && this.cursors.right.isDown) {
-      this.player.y -= this.player.speed + 1;
-      this.player.play('Walk_NE');
-    }
-    else if (this.cursors.up.isDown && this.cursors.left.isDown) {
-      this.player.x -= this.player.speed + 1;
-      this.player.play('Walk_NW');
-    }
-    else if (this.cursors.down.isDown && this.cursors.right.isDown) {
-      this.player.x += this.player.speed + 1;
-      this.player.play('Walk_SE');
-    }
-    else if (this.cursors.down.isDown && this.cursors.left.isDown) {
-      this.player.y += this.player.speed + 1;
-      this.player.play('Walk_SW');
-    }
-    else if (this.cursors.up.isDown) {
-      this.player.x -= this.player.speed;
-      this.player.y -= this.player.speed;
-      this.player.play('Walk_N');
-    }
-    else if (this.cursors.down.isDown) {
-      this.player.x += this.player.speed;
-      this.player.y += this.player.speed;
-      this.player.play('Walk_S');
-    }
-    else if (this.cursors.right.isDown) {
-      this.player.x += this.player.speed;
-      this.player.y -= this.player.speed;
-      this.player.play('Walk_E');
-    }
-    else if (this.cursors.left.isDown) {
-      this.player.x -= this.player.speed;
-      this.player.y += this.player.speed;
-      this.player.play('Walk_W');
-    }
-    else {
-      this.player.stop();
-    }
+    this.add.existing(this.player);
+    this.game.physics.isoArcade.enable(this.player);
   }
 
   update() {
-    this.walk();
+    this.game.physics.isoArcade.collide(this.player.sprite, this.emptyGroup);
+    this.game.iso.topologicalSort(this.emptyGroup);
   }
-
-  endGame() {
-    this.game.state.start('gameover');
+  render() {
+    this.game.debug.spriteInfo(this.player, 32, 32);
+    this.game.debug.inputInfo(32, 128);
   }
-
 }
 
 export default Game;
