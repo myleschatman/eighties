@@ -3,8 +3,7 @@ export default class Player extends Phaser.Sprite {
     super(game);
 
     this.sprite = this.game.add.isoSprite(350, 280, 0, 'player', 0);
-    this.scale.setTo(0.9);
-    this.anchor.set(0.5, 1);
+    this.sprite.scale.setTo(0.9);
 
     this.sprite.animations.add('Walk_N', Phaser.Animation.generateFrameNames('frame_', 1, 19), 20, true);
     this.sprite.animations.add('Walk_NE', Phaser.Animation.generateFrameNames('frame_', 20, 39), 20, true);
@@ -15,14 +14,14 @@ export default class Player extends Phaser.Sprite {
     this.sprite.animations.add('Walk_W', Phaser.Animation.generateFrameNames('frame_', 120, 139), 20, true);
     this.sprite.animations.add('Walk_NW', Phaser.Animation.generateFrameNames('frame_', 140, 159), 20, true);
 
-    this.sprite.speed = 100;
+    this.sprite.speed = 300;
+
+    this.cursors = this.game.input.keyboard.createCursorKeys();
 
     this.game.physics.isoArcade.enable(this.sprite);
     this.game.camera.follow(this.sprite);
-    this.cursors = this.game.input.keyboard.createCursorKeys();
-
   }
-  update() {
+  walk() {
     this.sprite.body.velocity.x = 0;
     this.sprite.body.velocity.y = 0;
 
@@ -65,5 +64,8 @@ export default class Player extends Phaser.Sprite {
     else {
       this.sprite.animations.stop();
     }
+  }
+  update() {
+    this.walk();
   }
 }
