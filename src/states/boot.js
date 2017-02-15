@@ -13,13 +13,14 @@ class Boot extends Phaser.State {
     // Add and enable the plug-in.
     this.game.plugins.add(new Phaser.Plugin.Isometric(this.game));
 
-    this.game.world.setBounds(0, 0, 3072, 2048);
+    this.game.world.setBounds(0, 0, 4096, 4096);
 
     // Start the IsoArcade physics system.
     this.game.physics.startSystem(Phaser.Plugin.Isometric.ISOARCADE);
 
     // Set a game canvas-based offset for the 0, 0, 0 isometric coordinate
-    this.game.iso.anchor.setTo(0.5, 0);
+    this.game.iso.anchor.setTo(0.5, 0.5);
+    this.game.iso.projectionAngle = 0.52;
   }
 
   create() {
