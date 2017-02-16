@@ -2,8 +2,9 @@ export default class Player extends Phaser.Sprite {
   constructor(game) {
     super(game);
 
-    this.sprite = this.game.add.isoSprite(350, 280, 0, 'player', 0);
-    this.sprite.scale.setTo(0.9);
+    this.sprite = this.game.add.isoSprite(550, 580, 0, 'player', 0);
+    this.sprite.anchor.set(0.5, 0.75);
+    this.sprite.scale.setTo(0.8);
 
     this.sprite.animations.add('Walk_N', Phaser.Animation.generateFrameNames('frame_', 1, 19), 20, true);
     this.sprite.animations.add('Walk_NE', Phaser.Animation.generateFrameNames('frame_', 20, 39), 20, true);
@@ -14,7 +15,7 @@ export default class Player extends Phaser.Sprite {
     this.sprite.animations.add('Walk_W', Phaser.Animation.generateFrameNames('frame_', 120, 139), 20, true);
     this.sprite.animations.add('Walk_NW', Phaser.Animation.generateFrameNames('frame_', 140, 159), 20, true);
 
-    this.sprite.speed = 300;
+    this.sprite.speed = 500;
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
