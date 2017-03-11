@@ -15,7 +15,7 @@ export default class Player extends Phaser.Sprite {
     this.sprite.animations.add('Walk_W', Phaser.Animation.generateFrameNames('frame_', 120, 139), 20, true);
     this.sprite.animations.add('Walk_NW', Phaser.Animation.generateFrameNames('frame_', 140, 159), 20, true);
 
-    this.sprite.speed = 500;
+    this.sprite.speed = 150;
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -27,19 +27,19 @@ export default class Player extends Phaser.Sprite {
     this.sprite.body.velocity.y = 0;
 
     if (this.cursors.up.isDown && this.cursors.right.isDown) {
-      this.sprite.body.velocity.y = -this.sprite.speed;
+      this.sprite.body.velocity.y = -this.sprite.speed -50;
       this.sprite.animations.play('Walk_NE');
     }
     else if (this.cursors.up.isDown && this.cursors.left.isDown) {
-      this.sprite.body.velocity.x = -this.sprite.speed;
+      this.sprite.body.velocity.x = -this.sprite.speed -50;
       this.sprite.animations.play('Walk_NW');
     }
     else if (this.cursors.down.isDown && this.cursors.right.isDown) {
-      this.sprite.body.velocity.x = this.sprite.speed;
+      this.sprite.body.velocity.x = this.sprite.speed +50;
       this.sprite.animations.play('Walk_SE');
     }
     else if (this.cursors.down.isDown && this.cursors.left.isDown) {
-      this.sprite.body.velocity.y = this.sprite.speed;
+      this.sprite.body.velocity.y = this.sprite.speed +50;
       this.sprite.animations.play('Walk_SW');
     }
     else if (this.cursors.up.isDown) {
