@@ -1,4 +1,5 @@
 import Player from '../prefabs/player';
+import Enemy from '../prefabs/enemy';
 import Dungeon from '../maps/dungeon';
 
 class Game extends Phaser.State {
@@ -32,18 +33,23 @@ class Game extends Phaser.State {
         this.wallTile.body.immovable = true;
       }
     }
-    this.player = new Player(this.game);
-    this.game.add.existing(this.player);
-    this.obstacleGroup.add(this.player.sprite);
-    this.wallGroup.add(this.player.sprite);
+    // this.player = new Player(this.game);
+    // this.game.add.existing(this.player);
+    // this.obstacleGroup.add(this.player.sprite);
+    // this.wallGroup.add(this.player.sprite);
+
+    this.enemy = new Enemy(this.game);
+    this.game.add.existing(this.enemy);
+    this.obstacleGroup.add(this.enemy.sprite);
+    this.wallGroup.add(this.enemy.sprite);
   }
   update() {
-    this.game.physics.isoArcade.collide(this.player.sprite, this.obstacleGroup);
+    this.game.physics.isoArcade.collide(this.enemy.sprite, this.obstacleGroup);
     this.game.iso.simpleSort(this.wallGroup);
   }
   render() {
-    this.game.debug.spriteInfo(this.player, 32, 32);
-    this.game.debug.inputInfo(32, 128);
+    // this.game.debug.spriteInfo(this.player, 32, 32);
+    // this.game.debug.inputInfo(32, 128);
   }
 }
 

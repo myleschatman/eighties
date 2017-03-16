@@ -25,9 +25,6 @@ class Preloader extends Phaser.State {
 
   loadResources() {
     // load your resources here
-    this.game.load.image('feca',
-      'assets/feca_female/01_feca_female_walk_north/frame_1_256x512.png'
-    );
     this.game.load.atlas('dungeon_tiles',
       '../../assets/maps/dungeon/dungeon_tiles.png',
       '../../assets/maps/dungeon/dungeon_tiles.json'
@@ -35,6 +32,10 @@ class Preloader extends Phaser.State {
     this.game.load.atlas('player',
       '../../assets/feca_female/feca_female_walk/feca_female_walk.png',
       '../../assets/feca_female/feca_female_walk/feca_female_walk.json'
+    );
+    this.game.load.atlas('enemy',
+      '../../assets/ecaflip_male/ecaflip_male_run/ecaflip_male_run.png',
+      '../../assets/ecaflip_male/ecaflip_male_run/ecaflip_male_run.json'
     );
   }
 
