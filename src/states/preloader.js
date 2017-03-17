@@ -34,8 +34,8 @@ class Preloader extends Phaser.State {
       '../../assets/feca_female/feca_female_walk/feca_female_walk.json'
     );
     this.game.load.atlas('enemy',
-      '../../assets/ecaflip_male/ecaflip_male_run/ecaflip_male_run.png',
-      '../../assets/ecaflip_male/ecaflip_male_run/ecaflip_male_run.json'
+      '../../assets/ecaflip_male/ecaflip_male.png',
+      '../../assets/ecaflip_male/ecaflip_male.json'
     );
   }
 
